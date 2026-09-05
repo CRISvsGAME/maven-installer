@@ -2,3 +2,6 @@
 !/.gitignore
 !/pyproject.toml
 !/README.md
+!/src
+__pycache__
+*.egg-info
