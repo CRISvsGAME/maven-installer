@@ -1,8 +1,13 @@
-"""Maven Installer"""
+"""Maven Installer CLI"""
 
 import argparse
 import sys
+from pathlib import Path
 from typing import NoReturn
+
+from maven_installer.state import StateException, load_state
+
+STATE_PATH = Path("/var/lib/maven-installer/state.json")
 
 
 class CLIException(Exception):
@@ -33,7 +38,13 @@ class CLI:
 
     def __install(self) -> None:
         """Install"""
-        print("Install")
+        state = load_state(STATE_PATH)
+
+        if state is None:
+            print("No State")
+            return
+
+        print(state)
 
     def __help(self) -> str:
         """Help"""
@@ -49,7 +60,7 @@ def main() -> None:
     """Main"""
     try:
         CLI()
-    except CLIException as e:
+    except (CLIException, StateException) as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(2)
 
