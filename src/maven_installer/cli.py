@@ -37,7 +37,11 @@ class CLI:
 
     def __help(self) -> str:
         """Help"""
-        message = "Help"
+        message = (
+            "Usage: install-maven [-h]\n\n"
+            "Options:\n"
+            "    -h, --help  Show this help message and exit"
+        )
         return message
 
 
